@@ -25,15 +25,7 @@ public class CourseDaoImpl implements CourseDao {
         //YOUR CODE STARTS HERE
         final String INSERT_NEW_COURSE = "INSERT INTO course (courseCode, courseDesc) VALUES (?, ?)";
 
-        KeyHolder keyHolder = new GeneratedKeyHolder();
-        jdbcTemplate.update(con -> {PreparedStatement ps = con.prepareStatement(INSERT_NEW_COURSE, new String[]{"tid"});
-            ps.setString(1, course.getCourseName());
-            ps.setString(2, course.getCourseDesc());
-            return ps;
-        }, keyHolder);
-
-        Number key = keyHolder.getKey();
-        course.setCourseId(key.intValue());
+        jdbcTemplate.update(INSERT_NEW_COURSE, course.getCourseName(), course.getCourseDesc());
 
         return course;
         //YOUR CODE ENDS HERE

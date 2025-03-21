@@ -32,15 +32,7 @@ public class StudentDaoImpl implements StudentDao {
         //YOUR CODE STARTS HERE
         final String CREATE_NEW_STUDENT = "INSERT INTO student (fName, lName) VALUES (?, ?)";
 
-        KeyHolder keyHolder = new GeneratedKeyHolder();
-        jdbcTemplate.update(con -> {PreparedStatement ps = con.prepareStatement(CREATE_NEW_STUDENT, new String[]{"tid"});
-            ps.setString(1, student.getStudentFirstName());
-            ps.setString(2, student.getStudentLastName());
-            return ps;
-        }, keyHolder);
-
-        Number key = keyHolder.getKey();
-        student.setStudentId(key.intValue());
+        jdbcTemplate.update(CREATE_NEW_STUDENT, student.getStudentFirstName(), student.getStudentLastName());
 
         return student;
         //YOUR CODE ENDS HERE
